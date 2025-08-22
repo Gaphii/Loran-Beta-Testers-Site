@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loran - Beta Test Başvuru Formu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Press+Start+2P&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1f2d 0%, #11141f 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(67, 136, 211, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 70%, rgba(106, 124, 224, 0.1) 0%, transparent 20%),
+                url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"><rect fill=\"%23252a3d\" width=\"100\" height=\"100\"/><path d=\"M0 0L100 100\" stroke=\"%23333a54\" stroke-width=\"1\"/><path d=\"M100 0L0 100\" stroke=\"%23333a54\" stroke-width=\"1\"/></svg>');
+            opacity: 0.4;
+            z-index: -1;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(23, 26, 38, 0.9);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #394263;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        .container::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, rgba(72, 84, 138, 0.1), rgba(32, 39, 65, 0.1));
+            transform: rotate(30deg);
+            z-index: -1;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, #43d3db, #6a7ce0);
+            border-radius: 3px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #43d3db, #6a7ce0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(67, 211, 219, 0.3);
+            font-family: 'Press Start 2P', cursive;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .typing-text {
+            height: 30px;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-style: italic;
+            color: #43d3db;
+        }
+        
+        .input-group {
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #8d9ae5;
+            font-size: 0.95rem;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(35, 40, 58, 0.7);
+            border: 1px solid #394263;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #43d3db;
+            box-shadow: 0 0 0 2px rgba(67, 211, 219, 0.3);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.8rem;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(90deg, #43d3db, #6a7ce0);
+            color: white;
+            border: none;
+            padding: 16px 25px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(67, 211, 219, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 211, 219, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .required {
+            color: #ff4757;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2rem;
+            background: #43d3db;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .minecraft-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.2rem;
+            display: block;
+            text-align: center;
+            color: #43d3db;
+            text-shadow: 0 0 10px rgba(67, 211, 219, 0.5);
+        }
+        
+        .footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(67, 211, 219, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.8rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .minecraft-icon {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="header">
+            <span class="minecraft-icon">⛏</span>
+            <h1>LORAN</h1>
+            <div class="subtitle">Minecraft Sunucusu Beta Test Programı</div>
+            <div class="typing-text" id="typing-text"></div>
+        </div>
+        
+        <form id="beta-form">
+            <div class="input-group">
+                <label>Minecraft Kullanıcı Adı <span class="required">*</span></label>
+                <input type="text" id="username" required placeholder="Kullanıcı adınızı girin">
+            </div>
+            
+            <div class="input-group">
+                <label>E-posta Adresi <span class="required">*</span></label>
+                <input type="email" id="email" required placeholder="E-posta adresinizi girin">
+            </div>
+            
+            <div class="input-group">
+                <label>Yaşınız <span class="required">*</span></label>
+                <input type="number" id="age" min="12" required placeholder="Yaşınızı girin">
+            </div>
+            
+            <div class="input-group">
+                <label>Minecraft Deneyim Seviyeniz <span class="required">*</span></label>
+                <select id="experience" required>
+                    <option value="" disabled selected>Seviyenizi seçin</option>
+                    <option value="beginner">Yeni Başlayan</option>
+                    <option value="intermediate">Orta Seviye</option>
+                    <option value="advanced">İleri Seviye</option>
+                    <option value="expert">Uzman</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label>Neden beta tester olmak istiyorsunuz? <span class="required">*</span></label>
+                <textarea id="reason" required placeholder="Bize kendinizden ve neden beta tester olmak istediğinizden bahsedin..."></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label>Daha önce beta test yaptınız mı? Deneyimleriniz neler?</label>
+                <textarea id="previous-experience" placeholder="Varsa önceki beta test deneyimlerinizi paylaşın..."></textarea>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">Loran Beta Test Programı kurallarını okudum ve kabul ediyorum <span class="required">*</span></label>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i>
+                BAŞVURUYU GÖNDER
+            </button>
+        </form>
+        
+        <div class="footer">
+            Loran Minecraft Sunucusu © 2023 - Tüm hakları saklıdır.
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Yazı yazma efekti
+            const texts = [
+                "Loran dünyasının ilk kaşifleri arasında yer al...",
+                "Yeni özellikleri ilk sen test et...",
+                "Efsanevi macera şimdi başlıyor...",
+                "Minecraft deneyimini birlikte şekillendirelim..."
+            ];
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
+            let deleteSpeed = 50;
+            let pauseTime = 2000;
+            
+            const typingTextElement = document.getElementById('typing-text');
+            
+            function typeText() {
+                const currentText = texts[textIndex];
+                
+                if (isDeleting) {
+                    // Metni silme
+                    typingTextElement.innerHTML = currentText.substring(0, charIndex - 1) + '<span class="cursor"></span>';
+                    charIndex--;
+                } else {
+                    // Metni yazma
+                    typingTextElement.innerHTML = currentText.substring(0, charIndex + 1) + '<span class="cursor"></span>';
+                    charIndex++;
+                }
+                
+                // Hız ayarları
+                let speed = isDeleting ? deleteSpeed : typingSpeed;
+                
+                // Metin tamamlandıysa veya tamamen silindiyse
+                if (!isDeleting && charIndex === currentText.length) {
+                    speed = pauseTime;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    speed = 500;
+                }
+                
+                setTimeout(typeText, speed);
+            }
+            
+            // Yazma animasyonunu başlat
+            setTimeout(typeText, 1000);
+            
+            // Uçan partiküller oluştur
+            function createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const particleCount = 20;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Rastgele boyut ve pozisyon
+                    const size = Math.random() * 10 + 5;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const delay = Math.random() * 15;
+                    
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${posX}%`;
+                    particle.style.top = `${posY}%`;
+                    particle.style.animationDelay = `${delay}s`;
+                    
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            
+            createParticles();
+            
+            // Form gönderimini işle
+            document.getElementById('beta-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Form verilerini topla
+                const formData = {
+                    username: document.getElementById('username').value,
+                    email: document.getElementById('email').value,
+                    age: document.getElementById('age').value,
+                    experience: document.getElementById('experience').value,
+                    reason: document.getElementById('reason').value,
+                    previousExperience: document.getElementById('previous-experience').value,
+                    terms: document.getElementById('terms').checked
+                };
+                
+                // E-posta gönderme simülasyonu
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> GÖNDERİLİYOR...';
+                submitBtn.disabled = true;
+                
+                // Simüle edilmiş e-posta gönderme
+                setTimeout(() => {
+                    // Burada gerçekte bir e-posta gönderme işlemi yapılır
+                    // Örnek: EmailJS veya başka bir servis kullanılabilir
+                    
+                    // Başarı mesajı göster
+                    alert('Başvurunuz grknksbkl@gmail.com adresine gönderilmiştir! Değerlendirme sürecinden sonra sizinle iletişime geçilecektir.');
+                    
+                    // Formu sıfırla
+                    this.reset();
+                    
+                    // Butonu eski haline getir
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
